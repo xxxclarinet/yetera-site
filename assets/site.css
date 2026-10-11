@@ -1,0 +1,639 @@
+/* ==========================================================================
+   Yetera · yetera.caelune.top
+   Brand: Caelune
+
+   Palette follows the app: soft mint ground, cream paper, deep blue ink.
+   Letters are the system stack — no web font is loaded, so the page renders
+   identically offline and nothing is requested from a third party.
+   No JavaScript is required to read any page here.
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark;
+
+  /* Ground: mint */
+  --bg: #e9f5ee;
+  --bg-deep: #dff1e7;
+
+  /* Surfaces: cream paper */
+  --surface: #fffcf5;
+  --surface-soft: #f6f1e4;
+  --surface-quiet: #f2f7f2;
+
+  /* Deep blue ink */
+  --ink: #1f3354;
+  --ink-soft: #43526c;
+  --ink-faint: #5a6981;
+  --line: #2b4f8c;
+  --line-soft: rgba(43, 79, 140, 0.46);
+  --line-hair: rgba(43, 79, 140, 0.18);
+
+  /* Accents, used the way the app uses them: to say *which*, never *how good* */
+  --mint: #5fcb98;
+  --mint-soft: #dcf3e6;
+  --sun: #ffc94a;
+  --sun-soft: #fff0c7;
+  --sky: #5b9deb;
+  --coral: #ff8a6b;
+
+  --link: #2b4f8c;
+  --focus: #2f6fd0;
+
+  --radius: 22px;
+  --radius-sm: 14px;
+  --lift: 3px;
+  --shadow: 0 1px 0 rgba(43, 79, 140, 0.05), 0 10px 24px -14px rgba(43, 79, 140, 0.5);
+
+  --measure: 46rem;
+  --shell: 60rem;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10151d;
+    --bg-deep: #0d1118;
+
+    --surface: #1b222c;
+    --surface-soft: #222b38;
+    --surface-quiet: #222b38;
+
+    --ink: #f2f0ea;
+    --ink-soft: #b3bdcc;
+    --ink-faint: #99a6b8;
+    --line: #8fb6e8;
+    --line-soft: rgba(143, 182, 232, 0.34);
+    --line-hair: rgba(143, 182, 232, 0.18);
+
+    --mint-soft: #1e3330;
+    --sun-soft: #3a3324;
+
+    --link: #a6c8f2;
+    --focus: #a6c8f2;
+
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 28px -18px rgba(0, 0, 0, 0.9);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One soft mint glow at the top, so the page has a light source without
+   becoming a landing-page gradient. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -30vh 0 auto 0;
+  height: 70vh;
+  background: radial-gradient(
+    60% 60% at 50% 0%,
+    color-mix(in srgb, var(--mint) 22%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    background: radial-gradient(
+      60% 60% at 50% 0%,
+      rgba(95, 203, 152, 0.09),
+      transparent 70%
+    );
+  }
+}
+
+.shell,
+.site-header,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------- elements */
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 10px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  z-index: 10;
+}
+
+.skip:focus {
+  left: 12px;
+  top: 12px;
+}
+
+/* ----------------------------------------------------------------- header */
+
+.site-header {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 22px 20px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 19px;
+  letter-spacing: 0.01em;
+}
+
+.brand-mark {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 22%;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* The language switch comes first in the markup so it can sit on its own row
+   next to the wordmark on a phone; on wider screens it reads last. */
+.header-right .site-nav {
+  order: 1;
+}
+
+.header-right .lang-switch {
+  order: 2;
+}
+
+.site-nav a,
+.header-right .lang-switch {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 15px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+}
+
+.site-nav a:hover,
+.header-right .lang-switch:hover {
+  color: var(--ink);
+  border-color: var(--line-hair);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line-soft);
+}
+
+.lang-switch {
+  font-weight: 600;
+  background: var(--surface);
+  border-color: var(--line-soft);
+  color: var(--ink);
+}
+
+.lang-switch:hover {
+  border-color: var(--line);
+}
+
+/* ------------------------------------------------------------------- shell */
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 8px 20px 72px;
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  margin: 28px 0 40px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.hero .claim {
+  margin: 18px 0 0;
+  font-size: clamp(2rem, 7vw, 3.1rem);
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.hero .claim .notyet {
+  display: block;
+  color: var(--ink);
+}
+
+.hero .claim .then {
+  display: block;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.hero .lede {
+  margin: 22px 0 0;
+  max-width: var(--measure);
+  font-size: 1.12rem;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------- cards */
+
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--line-soft);
+  border-bottom-width: calc(1.5px + var(--lift));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 26px;
+}
+
+/* ------------------------------------------------------------------- steps */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.step {
+  background: var(--surface);
+  border: 1.5px solid var(--line-soft);
+  border-bottom-width: calc(1.5px + var(--lift));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 22px 24px;
+}
+
+.step .tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--mint-soft);
+  border: 1.5px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 3px 11px;
+  margin-bottom: 14px;
+}
+
+.step:nth-child(2) .tag {
+  background: var(--sun-soft);
+}
+
+.step:nth-child(3) .tag {
+  background: var(--surface-quiet);
+}
+
+.step h3 {
+  margin: 0 0 6px;
+  font-size: 1.24rem;
+  font-weight: 700;
+}
+
+.step p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------- prose */
+
+.prose h2 {
+  margin: 44px 0 12px;
+  font-size: 1.32rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.prose h2:first-of-type {
+  margin-top: 30px;
+}
+
+.prose h3 {
+  margin: 26px 0 6px;
+  font-size: 1.06rem;
+  font-weight: 650;
+}
+
+.prose p,
+.prose li {
+  color: var(--ink-soft);
+}
+
+.prose p {
+  margin: 0 0 16px;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 16px;
+  padding-left: 1.3em;
+}
+
+.prose li {
+  margin-bottom: 8px;
+}
+
+.prose li::marker {
+  color: var(--line);
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--surface-quiet);
+  border: 1px solid var(--line-hair);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+.page-title {
+  margin: 26px 0 6px;
+  font-size: clamp(1.8rem, 5.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.page-sub {
+  margin: 0 0 8px;
+  color: var(--ink-faint);
+  font-size: 0.98rem;
+}
+
+.rule {
+  height: 1.5px;
+  background: var(--line-hair);
+  border: 0;
+  margin: 26px 0 0;
+}
+
+/* --------------------------------------------------------------- callouts */
+
+.note {
+  background: var(--surface);
+  border: 1.5px solid var(--line-soft);
+  border-left-width: 6px;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 26px 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.note p {
+  margin: 0 0 8px;
+}
+
+.note p:last-child {
+  margin-bottom: 0;
+}
+
+.note .note-title {
+  display: block;
+  color: var(--ink);
+  font-weight: 650;
+  margin-bottom: 4px;
+}
+
+.note.quiet {
+  background: var(--surface-quiet);
+  border-left-width: 1.5px;
+}
+
+.note.preview {
+  background: var(--sun-soft);
+  border-color: var(--line-soft);
+  color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  .note.preview {
+    background: #2f2a1e;
+  }
+}
+
+/* -------------------------------------------------------------------- home */
+
+.section-title {
+  margin: 52px 0 16px;
+  font-size: 1.32rem;
+  font-weight: 700;
+}
+
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.facts li {
+  background: var(--surface);
+  border: 1.5px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  color: var(--ink-soft);
+}
+
+.facts li strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.quiet-statement {
+  margin: 52px 0 0;
+  font-size: 1.24rem;
+  line-height: 1.75;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: var(--measure);
+  text-wrap: balance;
+}
+
+.quiet-statement .soft {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.site-footer {
+  border-top: 1.5px solid var(--line-hair);
+  margin-top: 24px;
+  background: var(--bg-deep);
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-footer {
+    background: var(--bg-deep);
+  }
+}
+
+.site-footer .inner {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 30px 20px 44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.96rem;
+}
+
+.site-footer .colophon {
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.site-footer .colophon a {
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------ small screen */
+
+@media (max-width: 520px) {
+  body {
+    font-size: 16px;
+  }
+
+  .site-header {
+    padding-top: 16px;
+    row-gap: 4px;
+  }
+
+  .site-nav {
+    gap: 2px;
+  }
+
+  .site-nav a,
+  .header-right .lang-switch {
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+
+  /* The language switch takes the first row next to the wordmark, and the
+     page links drop to a second row: on a phone the header stays two tidy
+     rows instead of wrapping one stray pill. */
+  .header-right {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: end;
+    gap: 4px;
+  }
+
+  .header-right .lang-switch {
+    order: -1;
+  }
+
+  .shell {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .card {
+    padding: 20px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
